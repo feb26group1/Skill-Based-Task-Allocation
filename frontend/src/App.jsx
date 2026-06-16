@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+// import reactLogo from './assets/react.svg'
+// import viteLogo from './assets/vite.svg'
+// import heroImg from './assets/hero.png'
+// import './App.css'
 import LoginComp from './components/LoginComp'
 import Home from './pages/Home'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
@@ -21,7 +21,7 @@ function App() {
       {/* <LoginComp /> */}
       {/* <Home/> */}
 
-      <BrowserRouter>
+      {/* <BrowserRouter>
         <Routes>
 
           <Route path="/" element={<Home />} >
@@ -34,12 +34,19 @@ function App() {
             </ProtectedRoutes>}>
 
           </Route>
-          <Route path="/admin" element={<ProtectedRoutes role={1}>
+          <Route path="/ad++min" element={<ProtectedRoutes role={1}>
             <AdminDashboard />
           </ProtectedRoutes>}>
 
           </Route>
         </Routes>
+      </BrowserRouter> */}
+
+        <BrowserRouter>
+      <Routes>
+
+          <Route path="/" element={<AdminDashboard />} ></Route>
+          </Routes>
       </BrowserRouter>
     </>
   )
