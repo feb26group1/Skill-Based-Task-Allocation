@@ -1,14 +1,17 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/authSlice";
+import { useNavigate } from "react-router-dom";
+
 export default function LogOutComp() {
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     useEffect(() => {
-        //clear the redux state
         dispatch(logout());
-        //navigate to home page
-        navigate("/");
+        navigate("/login");
     }, []);
 
-    return null;
-
+    return <h3>Logging out...</h3>;
 }

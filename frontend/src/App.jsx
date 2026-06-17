@@ -1,57 +1,84 @@
-import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from './assets/vite.svg'
-// import heroImg from './assets/hero.png'
-// import './App.css'
-import LoginComp from './components/LoginComp'
-import Home from './pages/Home'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import ProtectedRoutes from './components/ProtectedRoutes'
-import UserDashboard from './pages/UserDashboard'
-import AdminDashboard from './pages/AdminDashboard'
-import LogOutComp from './pages/LogOutComp'
-import ManagerDashboard from './pages/Manager'
+import Home from "./pages/Home";
+import LoginComp from "./components/LoginComp";
+import UserDashboard from "./pages/UserDashboard";
+import AdminDashboard from "./pages/AdminDashboard";
+import ManagerDashboard from "./pages/Manager";
+import LogOutComp from "./pages/LogOutComp";
 
+import ProtectedRoutes from "./components/ProtectedRoutes";
+
+import AdminHome from "./components/Admin/AdminHome";
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
-
-
   return (
-    <>
-      {/* <h1>Welcome</h1> */}
-      {/* <LoginComp /> */}
-      {/* <Home/> */}
+    <BrowserRouter>
+      <Routes>
 
-      {/* <BrowserRouter>
-        <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<Home />}>
+          <Route path="login" element={<LoginComp />} />
+          <Route path="register" element={<h2>Register Form</h2>} />
+        </Route>
 
-          <Route path="/" element={<Home />} >
-            <Route path="login" element={<LoginComp />} />
-            <Route path="register" element={<h2>Register form</h2>} />
-          </Route>
-          <Route path="/user" element={
-            <ProtectedRoutes role={2} >
+        {/* Admin Routes */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoutes role={1}>
+              <AdminDashboard />
+            </ProtectedRoutes>
+          }
+        >
+          {/* Default Page */}
+          <Route index element={<AdminHome />} />
+
+          {/* Future Admin Pages */}
+          {/* <Route path="employees" element={<EmployeeComp />} /> */}
+          {/* <Route path="projects" element={<ProjectComp />} /> */}
+          {/* <Route path="reports" element={<ReportsComp />} /> */}
+
+          <Route path="logout" element={<LogOutComp />} />
+        </Route>
+
+        {/* User Routes */}
+        <Route
+          path="/user"
+          element={
+            <ProtectedRoutes role={2}>
               <UserDashboard />
-            </ProtectedRoutes>}>
+            </ProtectedRoutes>
+          }
+        />
 
-          </Route>
-          <Route path="/ad++min" element={<ProtectedRoutes role={1}>
-            <AdminDashboard />
-          </ProtectedRoutes>}>
+        {/* Manager Routes */}
+        <Route
+          path="/manager"
+          element={
+            <ProtectedRoutes role={3}>
+              <ManagerDashboard />
+            </ProtectedRoutes>
+          }
+        />
 
-          </Route>
-        </Routes>
-      </BrowserRouter> */}
-      <BrowserRouter>
-        <Routes>
+        {/* Logout */}
+        <Route path="/logout" element={<LogOutComp />} />
 
-          <Route path="/" element={<UserDashboard />} >
-          </Route>
-        </Routes>
-      </BrowserRouter> 
+        {/* Unauthorized */}
+        <Route
+          path="/unauthorized"
+          element={
+            <div className="container mt-5">
+              <h2>Unauthorized Access</h2>
+              <p>You don't have permission to access this page.</p>
+            </div>
+          }
+        />
 
-    </>
-  )
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

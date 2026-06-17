@@ -4,81 +4,125 @@ import { loginSuccess } from "../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginComp() {
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [loggedIn, setLoggedIn] = useState("");
+    const [message, setMessage] = useState("");
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const reqoptions = {
-            headers: {
-                "Content-Type": "application/json"
 
-            },
-            body: JSON.stringify({ username, password }),
-            method: "POST",
+        try {
 
+            const response = await fetch(
+                "http://localhost:9000/login",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        username,
+                        password,
+                    }),
+                }
+            );
+
+            if (response.status === 404) {
+                setMessage("Wrong Credentials");
+                return;
+            }
+
+            const data = await response.json();
+
+            console.log(data);
+
+            dispatch(
+                loginSuccess({
+                    user: data.user,
+                    token: data.token,
+                })
+            );
+
+            setMessage("Login Successful");
+
+            // Role Based Navigation
+            if (data.user.role === 1) {
+                navigate("/admin");
+            }
+            else if (data.user.role === 2) {
+                navigate("/user");
+            }
+            else if (data.user.role === 3) {
+                navigate("/manager");
+            }
+            else {
+                setMessage("Invalid Role");
+            }
+
+        } catch (error) {
+            console.log(error);
+            setMessage("Something Went Wrong");
         }
-        fetch("http://localhost:9000/login", reqoptions)
-            .then(res => {
-                if (res.status === 200) {
-                    return res.json();
-                } else if (res.status === 404) {
-                    setLoggedIn("wrong credentials");
-                    return {};
-                }
-            })
-            .then(data => {
-                console.log(data);
-                //redux satate modify
-                dispatch(loginSuccess({ user: data.user, token: data.token }));
-
-                //routing to dashboard
-                if (data.user.role === 1) { //admin
-                    navigate("/admin");
-                } else if (data.user.role === 2) { //user
-                    navigate("/user");
-                } else {
-                    navigate("/home");
-                }
-
-            });
-
     };
-    return (
-        <div>
-            <h2>Login form</h2>
-            <form >
-                <div className="form-group">
-                    <label htmlFor="username">Username:</label>
-                    <input
-                        name="username"
-                        type="text"
-                        className="form-control"
-                        id="username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        name="password"
-                        type="text"
-                        className="form-control"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
-                <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Login</button>
-            </form>
-            <p>username: {username} <br />
-                password: {password}</p>
-            <p>{loggedIn}</p>
 
-            
+    return (
+        <div className="container mt-5">
+
+            <div className="card shadow p-4">
+
+                <h2 className="mb-4">Login Form</h2>
+
+                <form onSubmit={handleSubmit}>
+
+                    <div className="mb-3">
+                        <label className="form-label">
+                            Username
+                        </label>
+
+                        <input
+                            type="text"
+                            className="form-control"
+                            value={username}
+                            onChange={(e) =>
+                                setUsername(e.target.value)
+                            }
+                        />
+                    </div>
+
+                    <div className="mb-3">
+                        <label className="form-label">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            className="form-control"
+                            value={password}
+                            onChange={(e) =>
+                                setPassword(e.target.value)
+                            }
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        className="btn btn-primary"
+                    >
+                        Login
+                    </button>
+
+                </form>
+
+                <p className="mt-3">
+                    {message}
+                </p>
+
+            </div>
+
         </div>
-    )
+    );
 }
