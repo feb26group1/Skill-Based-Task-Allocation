@@ -42,12 +42,14 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter> */}
-
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<ManagerDashboard />} ></Route>
+
+          <Route path="/" element={<UserDashboard />} >
+          </Route>
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter> 
+
     </>
   )
 }
