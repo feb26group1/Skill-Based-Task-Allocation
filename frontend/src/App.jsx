@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+// import reactLogo from './assets/react.svg'
+// import viteLogo from './assets/vite.svg'
+// import heroImg from './assets/hero.png'
+// import './App.css'
 import LoginComp from './components/LoginComp'
 import Home from './pages/Home'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
@@ -10,6 +10,7 @@ import ProtectedRoutes from './components/ProtectedRoutes'
 import UserDashboard from './pages/UserDashboard'
 import AdminDashboard from './pages/AdminDashboard'
 import LogOutComp from './pages/LogOutComp'
+import ManagerDashboard from './pages/Manager'
 
 
 function App() {
@@ -34,7 +35,7 @@ function App() {
             </ProtectedRoutes>}>
 
           </Route>
-          <Route path="/admin" element={<ProtectedRoutes role={1}>
+          <Route path="/ad++min" element={<ProtectedRoutes role={1}>
             <AdminDashboard />
           </ProtectedRoutes>}>
 
