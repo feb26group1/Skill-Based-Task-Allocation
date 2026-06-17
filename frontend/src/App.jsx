@@ -21,7 +21,7 @@ function App() {
       {/* <LoginComp /> */}
       {/* <Home/> */}
 
-      <BrowserRouter>
+      {/* <BrowserRouter>
         <Routes>
 
           <Route path="/" element={<Home />} >
@@ -40,7 +40,15 @@ function App() {
 
           </Route>
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter> */}
+      <BrowserRouter>
+        <Routes>
+
+          <Route path="/" element={<UserDashboard />} >
+          </Route>
+        </Routes>
+      </BrowserRouter> 
+
     </>
   )
 }
