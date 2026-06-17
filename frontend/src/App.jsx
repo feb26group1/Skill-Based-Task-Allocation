@@ -10,6 +10,7 @@ import ProtectedRoutes from './components/ProtectedRoutes'
 import UserDashboard from './pages/UserDashboard'
 import AdminDashboard from './pages/AdminDashboard'
 import LogOutComp from './pages/LogOutComp'
+import ManagerDashboard from './pages/Manager'
 
 
 function App() {
@@ -42,11 +43,10 @@ function App() {
         </Routes>
       </BrowserRouter> */}
 
-        <BrowserRouter>
-      <Routes>
-
-          <Route path="/" element={<AdminDashboard />} ></Route>
-          </Routes>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<ManagerDashboard />} ></Route>
+        </Routes>
       </BrowserRouter>
     </>
   )
