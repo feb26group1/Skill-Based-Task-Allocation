@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function LoginComp() {
 
-    const [username, setUsername] = useState("");
+    const [empId, setEmpId] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
 
@@ -16,16 +16,17 @@ export default function LoginComp() {
         e.preventDefault();
 
         try {
+            console.log("inside")
 
             const response = await fetch(
-                "http://localhost:9000/login",
+                "http://localhost:8080/api/login",
                 {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        username,
+                        empId,
                         password,
                     }),
                 }
@@ -38,11 +39,11 @@ export default function LoginComp() {
 
             const data = await response.json();
 
-            console.log(data);
+            console.log(data.role);
 
             dispatch(
                 loginSuccess({
-                    user: data.user,
+                    user: data,
                     token: data.token,
                 })
             );
@@ -50,7 +51,7 @@ export default function LoginComp() {
             setMessage("Login Successful");
 
             // Role Based Navigation
-            if (data.user.role === 1) {
+            if (data.role.roleId === 1) {
                 navigate("/admin");
             }
             else if (data.user.role === 2) {
@@ -80,15 +81,15 @@ export default function LoginComp() {
 
                     <div className="mb-3">
                         <label className="form-label">
-                            Username
+                            Emp ID
                         </label>
 
                         <input
                             type="text"
                             className="form-control"
-                            value={username}
+                            value={empId}
                             onChange={(e) =>
-                                setUsername(e.target.value)
+                                setEmpId(e.target.value)
                             }
                         />
                     </div>

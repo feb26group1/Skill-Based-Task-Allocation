@@ -4,9 +4,7 @@ import UserDashboard from "./pages/UserDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import ManagerDashboard from "./pages/Manager";
 import LogOutComp from "./pages/LogOutComp";
-
 import ProtectedRoutes from "./components/ProtectedRoutes";
-
 import AdminHome from "./components/Admin/AdminHome";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -18,7 +16,8 @@ function App() {
 
         {/* Public Routes */}
         <Route path="/" element={<Home />}>
-          <Route path="login" element={<LoginComp />} />
+          {/* <Route path="login" element={<LoginComp />} /> */}
+          <Route path="login" element={<ManagerDashboard />} />
           <Route path="register" element={<h2>Register Form</h2>} />
         </Route>
 
