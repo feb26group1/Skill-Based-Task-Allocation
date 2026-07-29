@@ -3,6 +3,8 @@ package com.cdac.masterdata.entities;
 import java.time.LocalDate;
 
 import com.cdac.masterdata.enums.TaskStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,6 +35,7 @@ public class Task {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "p_id")
+    @JsonIgnore
     private Project project;
 
     @Column(name = "description")
