@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.cdac.masterdata.dto.UserDto;
 import com.cdac.masterdata.entities.Role;
 import com.cdac.masterdata.entities.SkillSet;
 import com.cdac.masterdata.entities.User;
@@ -34,7 +35,7 @@ public class AdminController {
     }
 
     @GetMapping("/users/{empId}")
-    public ResponseEntity<User> getUserByEmpId(@PathVariable String empId) {
+    public ResponseEntity<UserDto> getUserByEmpId(@PathVariable String empId) {
         return new ResponseEntity<>(userService.getUserById(empId), HttpStatus.OK);
     }
 

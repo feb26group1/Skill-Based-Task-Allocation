@@ -5,18 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cdac.masterdata.dto.UserAuthDto;
+import com.cdac.masterdata.dto.UserDto;
 import com.cdac.masterdata.entities.User;
 import com.cdac.masterdata.repository.UserRepository;
 import com.cdac.masterdata.service.UserService;
-
 
 @Service
 public class UserServiceImple implements UserService {
 
     @Autowired
     UserRepository userRepository;
-
-  
 
     @Override
     public User addUser(User user) {
@@ -31,9 +30,43 @@ public class UserServiceImple implements UserService {
     }
 
     @Override
-    public User getUserById(String empId) {
+    public UserDto getUserById(String empId) {
 
-        return userRepository.findByEmpId(empId);
+        User user = userRepository.findByEmpId(empId);
+
+        if (user == null) {
+            return null;
+        }
+
+        UserDto dto = new UserDto();
+
+        dto.setId(user.getId());
+        dto.setEmpId(user.getEmpId());
+        dto.setName(user.getName());
+        dto.setRole(user.getRole());
+        dto.setEmail(user.getEmail());
+        dto.setPhoneNumber(user.getPhoneNumber());
+        dto.setExp(user.getExp());
+
+        return dto;
+    }
+
+    @Override
+    public UserAuthDto getUserForAuthentication(String empId) {
+
+        User user = userRepository.findByEmpId(empId);
+
+        if (user == null) {
+            return null;
+        }
+
+        UserAuthDto dto = new UserAuthDto();
+
+        dto.setEmpId(user.getEmpId());
+        dto.setPassword(user.getPassword());
+        dto.setRole(user.getRole());
+
+        return dto;
     }
 
     @Override

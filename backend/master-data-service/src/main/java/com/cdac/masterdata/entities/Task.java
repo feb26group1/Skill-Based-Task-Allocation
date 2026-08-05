@@ -41,9 +41,9 @@ public class Task {
     @Column(name = "description")
     private String description;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status")
-    private TaskStatus status;
+    // @Enumerated(EnumType.STRING)
+    // @Column(name = "status")
+    // private TaskStatus status;
 
     @Column(name = "start_date")
     private LocalDate startDate;
