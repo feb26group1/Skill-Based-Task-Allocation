@@ -19,7 +19,7 @@ export default function LoginComp() {
             console.log("inside")
 
             const response = await fetch(
-                "http://localhost:8080/api/login",
+                "http://localhost:8082/auth/login",
                 {
                     method: "POST",
                     headers: {
@@ -54,10 +54,10 @@ export default function LoginComp() {
             if (data.role.roleId === 1) {
                 navigate("/admin");
             }
-            else if (data.user.role === 2) {
+            else if (data.role.roleId === 2) {
                 navigate("/user");
             }
-            else if (data.user.role === 3) {
+            else if (data.role.roleId === 3) {
                 navigate("/manager");
             }
             else {

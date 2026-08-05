@@ -2,6 +2,8 @@ package com.cdac.masterdata.service;
 
 import java.util.List;
 
+import com.cdac.masterdata.dto.UserAuthDto;
+import com.cdac.masterdata.dto.UserDto;
 import com.cdac.masterdata.entities.User;
 
 
@@ -11,9 +13,11 @@ public interface UserService {
 
     List<User> getAllUsers();
 
-    User getUserById(String empId);
+    UserDto getUserById(String empId);
 
     User updateUser(String empId, User user);
 
     void deleteUser(String empId);
+
+    UserAuthDto getUserForAuthentication(String empId);
 }

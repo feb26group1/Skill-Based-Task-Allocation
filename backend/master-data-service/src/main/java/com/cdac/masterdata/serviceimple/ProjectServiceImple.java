@@ -61,7 +61,7 @@ public class ProjectServiceImple implements ProjectService {
         existingTask.setDescription(task.getDescription());
         existingTask.setStartDate(task.getStartDate());
         existingTask.setEndDate(task.getEndDate());
-        existingTask.setStatus(task.getStatus());
+       // existingTask.setStatus(task.getStatus());
      //   existingTask.setPriority(task.getPriority());
         existingTask.setProject(task.getProject());
 
